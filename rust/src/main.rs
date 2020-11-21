@@ -7,7 +7,6 @@ use std::{
 
 trait BirthdayGreeting {
     fn run(&self, file_name: String);
-    fn send_email(&self, to: String, title: String, body: String);
 }
 
 struct App();
@@ -34,14 +33,7 @@ impl BirthdayGreeting for App {
                         if today.day() == u32::from_str(date[0]).unwrap_or(0)
                             && today.month() == u32::from_str(date[1]).unwrap_or(0)
                         {
-                            self.send_email(
-                                tokens[3].to_string(),
-                                String::from("Joyeux Anniversaire !"),
-                                format!(
-                                    "Bonjour {},\nJoyeux Anniversaire !\nA bientôt,",
-                                    tokens[0]
-                                ),
-                            );
+                            unimplemented!();
                         }
                     } else {
                         eprintln!("Cannot read birthdate for {} {}", tokens[0], tokens[1]);
@@ -51,13 +43,6 @@ impl BirthdayGreeting for App {
                 }
             }
         }
-    }
-
-    fn send_email(&self, to: String, title: String, body: String) {
-        println!("Sending email to : {}", to);
-        println!("Title: {}", title);
-        println!("Body: {}", body);
-        println!("-------------------------");
     }
 }
 
