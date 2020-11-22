@@ -1,28 +1,8 @@
-use std::io;
-
-mod email {
-
-    struct Mailer {}
-
-    struct Mail {
-        to: String,
-        from: String,
-        subject: String,
-        body: String,
-    }
-
-    impl Mail {
-        fn send_email(&self) {
-            println!("Sending email to : {}", self.to);
-            println!("subject: {}", self.subject);
-            println!("Body: {}", self.body);
-            println!("-------------------------");
-        }
-    }
-}
+pub mod email {}
 #[cfg(test)]
 mod tests {
-    use super::*;
+    mod email;
+    use std::io;
     #[test]
     fn test_send_mail() {
         let mail = Mail {
@@ -31,10 +11,14 @@ mod tests {
             subject: String::from("test"),
             body: String::from("test-body"),
         };
-        mail.send_email();
+        Mailer {}.send_email(mail);
         let mut buffer = String::new();
         let reader = io::stdin();
         reader.read_to_string(&mut buffer);
         println!("{}", buffer);
+        let expected_result = String::from(
+            "Sending email to : Swann\nsubject: test\nBody: test-body\n-------------------------",
+        );
+        assert_eq!(buffer, expected_result);
     }
 }
